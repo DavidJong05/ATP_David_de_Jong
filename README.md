@@ -26,4 +26,5 @@ De taal bevat een aantal commands
 - PRINT
 - GOTO
 
-Tiniest Basic maakt alleen gebruik van integers
+Tiniest Basic maakt alleen gebruik van integers.
+Variabelen kunnen alleen losse hoofdletters zijn,
