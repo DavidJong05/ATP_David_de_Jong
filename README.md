@@ -27,4 +27,8 @@ De taal bevat een aantal commands
 - GOTO
 
 Tiniest Basic maakt alleen gebruik van integers.
-Variabelen kunnen alleen losse hoofdletters zijn,
+Variabelen kunnen alleen losse hoofdletters zijn.
+
+2 Condities voor een if statement verschillen met de meeste programmeer talen namelijk:
+- IF G <> 10 - Dit is een NOT conditie
+- IF A = 42 - Dit is een equal conditie ipv. ==
