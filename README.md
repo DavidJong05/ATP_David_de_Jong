@@ -27,8 +27,8 @@ De taal bevat een aantal commands
 - GOTO
 
 Tiniest Basic maakt alleen gebruik van integers.
-Variabelen kunnen alleen losse hoofdletters zijn zoals A B C.
-\n PRINT functie kan alleen iets printen als het tussen ' ' staat: PRINT 'Hello World!'
+Variabelen kunnen alleen losse hoofdletters zijn zoals A B C. <br />
+PRINT functie kan alleen iets printen als het tussen ' ' staat: PRINT 'Hello World!'
 
 2 Condities voor een if statement verschillen met de meeste programmeer talen namelijk:
 - IF G <> 10 - Dit is een NOT conditie
