@@ -208,8 +208,11 @@ def lexer(prog: str, lexed: List[Token]) -> List[Token]:
         lexed.append(tokendict['IF_state'][1]())
         del progrest[0:2]
 
-    if c in variables and (prog[1] in small_tokens or prog[1] == ' ' or prog[1] == '\n'):  ### Variable token
-        lexed.append(tokendict['Variable'][1](c))
+    if c in variables:  ### Variable token
+        if len(prog) == 1:
+            lexed.append(tokendict['Variable'][1](c))
+        elif (prog[1] in small_tokens or prog[1] == ' ' or prog[1] == '\n'):
+            lexed.append(tokendict['Variable'][1](c))
 
     if c == '\n' and prog[1] in digits:  ### Newline + subroutine number
         line = list_till_seperator(prog[1:], [' ','\n'])
