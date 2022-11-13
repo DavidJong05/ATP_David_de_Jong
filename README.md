@@ -50,4 +50,5 @@ Door middelvan een `,` kunnen meerdere operaties op 1 regel:<br /><br />
 `2300 A = 1, B = 19, C = 20, Z = A + B`<br /><br />
 `3300 IF A = 1 B = 20, C = 21, Z = 1`<br /><br />
 Tiniest Basic kan niet meerdere reken-operaties in 1 regel maken, maximaal 2:<br /><br />
-`WRONG: Z = A + B + C`
+`WRONG: Z = A + B + C`<br />
+`CORRECT: Z = A + B`
