@@ -28,8 +28,20 @@ De taal bevat een aantal commands
 
 Tiniest Basic maakt alleen gebruik van integers.<br />
 Variabelen kunnen alleen losse hoofdletters zijn zoals A B C. <br />
-PRINT functie kan alleen iets printen als het tussen ' ' staat: PRINT 'Hello World!'
+PRINT functie kan alleen iets printen als het tussen ' ' staat: `PRINT 'Hello World!'`
 
 2 Condities voor een if statement verschillen met de meeste programmeer talen namelijk:
 - `IF G <> 10` - Dit is een NOT conditie
-- IF A = 42 - Dit is een equal conditie ipv. ==
+- `IF A = 42` - Dit is een equal conditie ipv. ==
+
+## Gebruik van taal
+
+Tiniest Basic maak gebruik van regelnummers die zelf gemaakt moeten worden. Zo wordt dus elke lijn assigned naar een nummer:<br />
+```
+10 A = 10
+20 B = 10
+30 C = A + B
+40 IF C = 20 GOTO 100
+50 GOTO 10
+100 PRINT 'C is 20!'
+```
