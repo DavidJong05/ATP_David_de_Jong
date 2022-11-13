@@ -1,0 +1,7 @@
+10 N = 100
+20 R = 0
+30 IF N < 1 GOTO 100
+40 R = R + N
+50 N = N - 1
+60 GOTO 30
+100 PRINT 'returned R'

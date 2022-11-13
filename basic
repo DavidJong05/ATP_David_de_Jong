@@ -1,0 +1,6 @@
+40 G = -12, Z = 0
+41 G = G + Z
+50 IF G = 100 GOTO 80
+60 G = G + 1
+70 GOTO 50
+80 PRINT 'ITS 100 NOW!'"
