@@ -47,6 +47,6 @@ Tiniest Basic maak gebruik van regelnummers die zelf gemaakt moeten worden. Zo w
 ```
 Regelnummers kunnen ook open gelaten worden voor verduidelijking als er meerdere functies onder elkaar staan.<br />
 Door middelvan een `,` kunnen meerdere operaties op 1 regel:<br /><br />
-`2300 A = 1, B = 19, C = 20, Z = A + B`<br />
-Tiniest Basic kan niet meerdere operaties in 1 regel maken, maximaal 2:<br />
+`2300 A = 1, B = 19, C = 20, Z = A + B`<br /><br />
+Tiniest Basic kan niet meerdere operaties in 1 regel maken, maximaal 2:<br /><br />
 `WRONG: Z = A + B + C`
