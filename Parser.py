@@ -5,7 +5,16 @@ from AST_classes import *
 
 sys.setrecursionlimit(200000)
 
-
+# list_till_token :: List[Token] -> Token -> List[Token]
+def list_till_token(lijst: List[Token], seperator: Token) -> List[Token]:
+    '''Returns a list till given seperator/token'''
+    if len(lijst) == 0:
+        return []
+    else:
+        head, *tail = lijst
+        if isinstance(head, seperator):
+            return [head][:-1]
+        return [head] + list_till_token(tail, seperator)
 
 class Parser:
     # __init__ :: List[Token] -> None
@@ -57,7 +66,7 @@ class Parser:
                 else:
                     raise SyntaxError(f"Token: {self.current_token}, is no Variable or Integer")
             else:
-                raise SyntaxError(f"Token: {self.next_token} is no binary operator")
+                raise SyntaxError(f"Token: {self.current_token} can't operate with Token: {self.next_token}")
         else:
             raise SyntaxError(f"Token: {self.current_token}, is no Variable or Integer")
 
@@ -79,13 +88,19 @@ class Parser:
                     if isinstance(self.next_token, Variable) or isinstance(self.next_token, Integer):
                         rhs = BinOp(temp, self.current_token, self.next_token)
                         self.goNextToken()
-                        self.goNextToken()  # ugly way to remove entire assign operator from token list
-                        return AssignOp(lhs, assign, rhs)
+                        self.goNextToken()  # Removes the used tokens from self.lexed_tokens
+                        if isinstance(self.current_token, Add) \
+                                or isinstance(self.current_token, Min) \
+                                or isinstance(self.current_token, Divide) \
+                                or isinstance(self.current_token, Multiply):
+                            raise SyntaxError(f" Can only use 2 variables in 1 operation")
+                        else:
+                            return AssignOp(lhs, assign, rhs)
                     else:
                         raise SyntaxError(f"Token: {self.next_token}, is no Variable or Integer")
                 elif isinstance(self.current_token, Variable) or isinstance(self.current_token, Integer):
                     rhs = self.current_token
-                    self.goNextToken()  # ugly way to remove entire assign operator from token list
+                    self.goNextToken()
                     return AssignOp(lhs, assign, rhs)
                 else:
                     raise SyntaxError(f"Token: {self.next_token} is no Binary operator or Variable or Integer")
@@ -112,16 +127,16 @@ class Parser:
                     if isinstance(self.next_token, Variable) or isinstance(self.next_token, Integer):
                         Con = Condition(temp2, self.current_token, self.next_token)
                         self.goNextToken()
-                        self.goNextToken()  # ugly way to remove entire if statement from token list
+                        self.goNextToken()  # Removes the used tokens from self.lexed_tokens
                         return IfNode(temp, Con)
                     else:
-                        print("IF statement not complete: Next token is no int or variable")
+                        raise SyntaxError(f"IF statement not complete: {self.next_token} is no int or variable")
                 else:
-                    print("IF statement not complete: Next token is no condition token")
+                    raise SyntaxError(f"IF statement not complete: {self.next_token} is no condition token")
             else:
-                print("IF statement not complete: Next token is no int or variable")
+                raise SyntaxError(f"IF statement not complete: {self.next_token} is no int or variable")
         else:
-            print("This token is no IF_state")
+            raise SyntaxError(f"Token: {self.current_token} is no IF_state")
 
     # parsePrint :: Print
     def parsePrint(self) -> Print:
@@ -168,6 +183,8 @@ class Parser:
 
         if len(self.lexed_tokens) == 0:
             return AST_list
+        else:
+            raise SyntaxError(f"Unexpected token: {self.current_token}")
 
     # parseProgram :: FileNode
     def parseProgram(self, file = None) -> FileNode:
