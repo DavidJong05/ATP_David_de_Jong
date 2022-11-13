@@ -9,7 +9,7 @@ Reference: https://p112.sourceforge.net/tbp112.html
 
 ## Gebruik van het programma
 
-Er kan een file gemaakt worden waarin Tiniest Basic code staat, die wordt vervolgens ingeladen en ge-interpet.
+Er kan een file gemaakt worden waarin Tiniest Basic code staat, die wordt vervolgens ingeladen en ge-interpret.
 Het programma maakt gebruik van Python versie 3.10 via Windows.
 
 ## Turing compleet
