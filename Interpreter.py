@@ -5,6 +5,21 @@ from Parser import *
 from AST_classes import *
 sys.setrecursionlimit(200000)
 
+# checkIfDuplicates :: List -> bool
+def checkIfDuplicates(listOfElems: List) -> bool:
+    ''' Check if given list contains any duplicates '''
+    if len(listOfElems) == len(set(listOfElems)):
+        return False
+    else:
+        return True
+
+def check(func):
+    def inside(a,b,c,d):
+        if isinstance(c, Divide) and d == 0:
+            raise SyntaxError(f"Can't divide {b} by 0")
+        return func(a,b,c,d)
+    return inside
+
 class Interpreter():
     # __init__ :: FileNode -> None
     def __init__(self, AST: FileNode) -> None:
@@ -17,6 +32,9 @@ class Interpreter():
     def initial(self) -> None:
         '''Initiates the Interpreter by assigning all the line numbers to self.line_numberList'''
         [self.line_numberList.append(lineNode.line_number.value) for lineNode in self.tree.body]
+        if checkIfDuplicates(self.line_numberList):
+            raise SyntaxError(f"Can only use a line number once.")
+        print(self.line_numberList)
         return self.interpTree()
 
     # interpTree :: None
@@ -74,6 +92,7 @@ class Interpreter():
             raise SyntaxError(f"Unknown Variable or Integer {node.left.value} {node.op} {node.right.value}")
 
     # returnResult :: int -> Token -> int -> Union[int,float]
+    @check
     def returnResult(self, left: int, op: Token, right: int) -> Union[int,float]:
         '''Returns the result of the given operation'''
         if isinstance(op, Add):
@@ -92,7 +111,6 @@ class Interpreter():
         '''Interprets the assign operator
         Assign the given value to the given variable
         Puts it in the self.memory'''
-
         if isinstance(node.right, BinOp):
             result = self.interpBinOp(node.right)
             self.memory[node.left.value] = int(result)
@@ -148,6 +166,7 @@ class Interpreter():
     # interpPrint :: Print -> None
     def interpPrint(self, node: Print) -> None:
         '''Returns printed value'''
+        print(self.memory)
         return print("Print: ",node.value)
 
     # interpGoto :: Goto -> None
