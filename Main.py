@@ -9,11 +9,11 @@ def main():
     #f = open("basic", "r")
     f = open("basic2", "r")
     #f = open("basic3", "r")
-    s = f.read()
-    s = '\n' + s[0:]
+    file_string = f.read()
+    file_string = '\n' + file_string[0:]
     lexed = lexer(s, [])
-    p1 = Parser(lexed)
-    file = p1.parseProgram()
+    parsed = Parser(lexed)
+    file = parsed.parseProgram()
     interp = Interpreter(file)
     interp.initial()
 
