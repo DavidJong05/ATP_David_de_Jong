@@ -31,5 +31,5 @@ Variabelen kunnen alleen losse hoofdletters zijn zoals A B C. <br />
 PRINT functie kan alleen iets printen als het tussen ' ' staat: PRINT 'Hello World!'
 
 2 Condities voor een if statement verschillen met de meeste programmeer talen namelijk:
-- IF G <> 10 - Dit is een NOT conditie
+- `IF G <> 10` - Dit is een NOT conditie
 - IF A = 42 - Dit is een equal conditie ipv. ==
