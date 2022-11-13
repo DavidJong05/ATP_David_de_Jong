@@ -120,7 +120,7 @@ class GOTO(Token):
 
 
 # small_tokens :: [Char]
-small_tokens = ['+', '-', '*', '/', '>', '<', '=', ',']
+small_tokens = ['+', '*', '/', '>', '<', '=', ',']
 
 # digits :: [Char]
 digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
@@ -128,6 +128,7 @@ digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 # Variables :: [Char]
 variables = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
              'V', 'W', 'X', 'Y', 'Z']
+
 
 # tokendict :: Dict((String,Token))
 tokendict = dict()
@@ -200,6 +201,8 @@ def lexer(prog: str, lexed: List[Token]) -> List[Token]:
             print_text = ''.join(text)
             del progrest[0:len(text) + 2] # + the "'" at the end
             lexed.append(tokendict['PRINT'][1](print_text))
+        else:
+            raise SyntaxError(f"No valid print value")
 
     if c == 'I' and prog[1:3] == ['F', ' ']:  ### IF_state token
         lexed.append(tokendict['IF_state'][1]())
@@ -208,16 +211,21 @@ def lexer(prog: str, lexed: List[Token]) -> List[Token]:
     if c in variables and (prog[1] in small_tokens or prog[1] == ' ' or prog[1] == '\n'):  ### Variable token
         lexed.append(tokendict['Variable'][1](c))
 
-    if c == "'":  ### prints text between ''
-        text = list_till_seperator(prog[1:], "'")
-        print_text = ''.join(text)
-        del progrest[0:len(text) + 1]  # removes the entire string plus the "'" at the end
-
-    if c == '\n' and prog[1] in digits:  ### Newline + subroutine number ## first code line = still wrong
-        line = list_till_seperator(prog[1:], ' ')
+    if c == '\n' and prog[1] in digits:  ### Newline + subroutine number
+        line = list_till_seperator(prog[1:], [' ','\n'])
         line_number = ''.join(line)
         del progrest[0:len(line)]
         lexed.append(tokendict['Newline'][1](line_number))
+
+    if c == '-': ### Minus numbers - Integer token
+        if prog[1] in digits:
+            numbers = list_till_seperator(progrest, (small_tokens, variables, ' ', '\n', ','))
+            numbers.insert(0, c)
+            del progrest[0:len(numbers) - 1]
+            number = ''.join(numbers)
+            lexed.append(tokendict['Integer'][1](number))
+        else:
+            lexed.append(tokendict[c][1]())
 
     if c in digits:  ### Integer token
         numbers = list_till_seperator(progrest, (small_tokens, variables, ' ', '\n', ','))
