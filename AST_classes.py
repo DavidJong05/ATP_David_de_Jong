@@ -128,15 +128,3 @@ class FileNode(AST):
     # __str__ :: str
     def __str__(self) -> str:
         return f"FILE: {self.name}\n{[str(line) for line in self.body]}"
-
-
-# list_till_token :: List[Token] -> Token -> List[Token]
-def list_till_token(lijst: List[Token], seperator: Token) -> List[Token]:
-    '''Returns a list till given seperator/token'''
-    if len(lijst) == 0:
-        return []
-    else:
-        head, *tail = lijst
-        if isinstance(head, seperator):
-            return [head][:-1]
-        return [head] + list_till_token(tail, seperator)
