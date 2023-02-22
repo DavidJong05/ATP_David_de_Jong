@@ -2,7 +2,7 @@
 
 ## Tiniest Basic
 
-Interpreter
+Eigen geschreven Interpreter
 
 Reference: https://p112.sourceforge.net/tbp112.html
 
